@@ -97,3 +97,6 @@ venv.bak/
 
 # Rope project settings
 .ropeproject
+
+# My directories and files
+HW_tasks/
