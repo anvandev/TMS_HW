@@ -1,18 +1,20 @@
-""" пока что калькулятор может:
+""" Алгоритм пинг-понг
+пока что калькулятор может:
 1. принимать введенное выражение и очищать его от пробелов
-3. определять многозначные числа и знак **  и преобразование в итоговый список для вычислений
-5. выполняет операций +- */ ** с 2 числами
+2. определять многозначные числа и знак **  и преобразование в итоговый список для вычислений
+3. выполняет операций +- */ ** с 2 числами
+4. калькулятор для выражений с множеством чисел - с операциями одного уровня - не понимает приоритет (без скобок)
+   4.1. 1 уровень - **; 2 уровень - */; 3 уровень - +-.
+   Пример: 3 + 10 - 2 или 3 * 10 / 2
 
 далее:
-применить алгоритм пинг-понг
-5. написать калькулятор для выражений с множестом числел - с операциями одного уровня (без скобок)
-6. калькулятор с операциями разного уровня (без скобок)
-7. калькулятор со скобками + с пониманием отрицательных числе в виде (-3)
-8. почистить код + написать с применением ООП
+5. калькулятор с операциями разного уровня - понимает приоритет (без скобок)
+6. калькулятор со скобками + с пониманием отрицательных числе в виде (-3)
+7. почистить код + написать с применением ООП
 """
 
 
-# calculator for two numbers
+# func - calculator for two numbers (operations: + - / * **)
 def math_operation(expression):
     operator = expression[1]
     if operator == '**':
@@ -25,6 +27,18 @@ def math_operation(expression):
         return expression[0]+expression[2]
     if operator == '-':
         return expression[0]-expression[2]
+
+
+# func - calculator for expressions with multiple numbers - with operations of the same level
+# - does not understand priority
+def calc_one_level(expression):
+    while len(expression) > 1:
+        operation = math_operation(expression)
+        expression.insert(0, operation)
+        del expression[2+1]
+        del expression[1+1]
+        del expression[0+1]
+    return expression
 
 
 # input expression and convert to the list
@@ -66,5 +80,7 @@ while i < len(exp_int):
 print(exp)
 
 
-# calculator for two numbers (operations: + - / * **)
-print(math_operation(exp))
+# calculator for expressions with multiple numbers - with operations of the same level
+# - does not understand priority
+result = calc_one_level(exp)
+print(f'result: {result}')
