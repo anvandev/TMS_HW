@@ -41,3 +41,18 @@ max_element = max(max_elements)
 print(f'Максимальный элемент -  {max_element}')
 min_element = min(min_elements)
 print(f'Минимальный элемент - {min_element}')
+
+# 4) Найти сумму всех элементов матрицы.
+sum_elements_in_line = []
+for line in random_matrix:
+    sum_elements_in_line.append(sum(line))
+sum_elements = sum(sum_elements_in_line)
+print(f'Сумма всех элементов - {sum_elements}')
+
+# 5) Найти индекс ряда с максимальной суммой элементов.
+line_index_max_sum = sum_elements_in_line.index(max(sum_elements_in_line))
+print(f'Индекс ряда с максимальной суммой элементов - {line_index_max_sum}')
+
+# 7) Найти индекс ряда с минимальной суммой элементов.
+line_index_min_sum = sum_elements_in_line.index(min(sum_elements_in_line))
+print(f'Индекс ряда с минимальной суммой элементов - {line_index_min_sum}')
