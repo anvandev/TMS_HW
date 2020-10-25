@@ -29,3 +29,15 @@ n = 4
 m = 4
 random_matrix = [[randint(1, 9) for i in range(n)] for j in range(m)]
 print_matrix(random_matrix)
+
+# 2) Найти максимальный элемент матрицы. - разделить на два коммита
+# 3) Найти минимальный элемент матрицы.
+max_elements = []
+min_elements = []
+for line in random_matrix:
+    max_elements.append(max(line))
+    min_elements.append(min(line))
+max_element = max(max_elements)
+print(f'Максимальный элемент -  {max_element}')
+min_element = min(min_elements)
+print(f'Минимальный элемент - {min_element}')
