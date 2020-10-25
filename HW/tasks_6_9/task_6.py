@@ -56,3 +56,19 @@ print(f'Индекс ряда с максимальной суммой элем�
 # 7) Найти индекс ряда с минимальной суммой элементов.
 line_index_min_sum = sum_elements_in_line.index(min(sum_elements_in_line))
 print(f'Индекс ряда с минимальной суммой элементов - {line_index_min_sum}')
+
+# 6) Найти индекс колонки с максимальной суммой элементов.
+# 8) Найти индекс колонки с минимальной суммой элементов.
+i = 0
+sum_elements_in_column = []
+while i < n:
+    one_column_sum = 0
+    for line in random_matrix:
+        one_column_sum += line[i]
+    sum_elements_in_column.append(one_column_sum)
+    i += 1
+column_index_max_sum = sum_elements_in_column.index(max(sum_elements_in_column))
+print(f'Индекс колонки с максимальной суммой элементов - {column_index_max_sum}')
+
+column_index_min_sum = sum_elements_in_column.index(min(sum_elements_in_column))
+print(f'Индекс колонки с минимальной суммой элементов - {column_index_min_sum}')
