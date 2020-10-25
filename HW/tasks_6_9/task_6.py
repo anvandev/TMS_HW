@@ -72,3 +72,38 @@ print(f'Индекс колонки с максимальной суммой э�
 
 column_index_min_sum = sum_elements_in_column.index(min(sum_elements_in_column))
 print(f'Индекс колонки с минимальной суммой элементов - {column_index_min_sum}')
+
+# 9) Обнулить все элементы выше главной диагонали.
+matrix_0_above = []
+i = 0
+for line in random_matrix:
+    new_line = []
+    j = 0
+    for element in line:
+        if j <= i:
+            new_line.append(element)
+        else:
+            new_line.append(0)
+        j += 1
+    matrix_0_above.append(new_line)
+    i += 1
+print(f'Matrix with 0 above main diagonal:')
+print_matrix(matrix_0_above)
+
+
+# 10) Обнулить все элементы ниже главной диагонали.
+matrix_0_below = []
+i = 0
+for line in random_matrix:
+    new_line = []
+    j = 0
+    for element in line:
+        if j < i:
+            new_line.append(0)
+        else:
+            new_line.append(element)
+        j += 1
+    matrix_0_below.append(new_line)
+    i += 1
+print(f'Matrix with 0 above main diagonal:')
+print_matrix(matrix_0_below)
