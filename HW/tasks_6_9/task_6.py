@@ -117,3 +117,44 @@ print_matrix(matrix_a)
 
 print(f'Matrix b:')
 print_matrix(matrix_b)
+
+
+# 12)Создать матрицу равную сумме matrix_a и matrix_b.
+matrix_a_plus_b = []
+i = 0
+for line in matrix_a:
+    new_line = []
+    j = 0
+    for element in line:
+        new_line.append(element + matrix_b[i][j])
+        j += 1
+    matrix_a_plus_b.append(new_line)
+    i += 1
+print('Matrix a + matrix b: ')
+print_matrix(matrix_a_plus_b)
+
+
+# 13)Создать матрицу равную разности matrix_a и matrix_b.
+matrix_a_minus_b = []
+i = 0
+for line in matrix_a:
+    new_line = []
+    j = 0
+    for element in line:
+        new_line.append(element - matrix_b[i][j])
+        j += 1
+    matrix_a_minus_b.append(new_line)
+    i += 1
+print('Matrix a - matrix b: ')
+print_matrix(matrix_a_minus_b)
+
+
+# 14)Создать новую матрицу равную matrix_a умноженной на g. g вводится с клавиатура"""
+g = int(input('Введите значение g: '))
+matrix_a_mult_g = []
+for line in matrix_a:
+    new_line = []
+    for element in line:
+        new_line.append(element * g)
+    matrix_a_mult_g.append(new_line)
+print_matrix(matrix_a_mult_g)
