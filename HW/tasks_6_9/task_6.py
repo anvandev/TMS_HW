@@ -107,3 +107,13 @@ for line in random_matrix:
     i += 1
 print(f'Matrix with 0 above main diagonal:')
 print_matrix(matrix_0_below)
+
+# 11) Создать две новые матрицы matrix_a, matrix_b случайных чисел размерностью n*m.
+matrix_a = [[randint(1, 9) for f in range(n)] for g in range(m)]
+matrix_b = [[randint(1, 9) for f in range(n)] for g in range(m)]
+
+print(f'Matrix a:')
+print_matrix(matrix_a)
+
+print(f'Matrix b:')
+print_matrix(matrix_b)
