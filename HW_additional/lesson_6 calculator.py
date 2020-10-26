@@ -1,15 +1,13 @@
-""" Алгоритм пинг-понг
-пока что калькулятор может:
-1. принимать введенное выражение и очищать его от пробелов
-2. определять многозначные числа и знак **  и преобразование в итоговый список для вычислений
-3. калькулятор для выражений с операциями разного уровня - понимает приоритет (пока что без скобок)
-   1 уровень - **; 2 уровень - */; 3 уровень - +-.
-   Пример: 2 + 3 ** 2 - 2 * 2 + 6/3 + 3* 2 ** 2
+"""
+Калькулятор построен на алгоритме пинг-понг.
+Калькулятор пока что работает для целых неотрицательных чисел.
+Допустимые операции: **, *, /, +, -. Пробелы значение не имеют.
+Пример: 2 + 3 ** 2 - 2 * 2 + 6/3 + 3* 2 ** 2
 
-далее:
-4. проверка на непредусмотренные символы при вводе строки
-5. калькулятор со скобками + с пониманием отрицательных числе в виде (-3)
-6. почистить код + написать с применением ООП + raise error  при неккоректном
+далее сделать:
+4. калькулятор со скобками
+4. калькулятор с пониманием отрицательных числе в виде (-3) и дробных чисел
+5. почистить код + написать с применением ООП + raise error  при неккоректном
 вводе символов (два оператора подряд, два числа and so on)
 """
 
@@ -31,8 +29,8 @@ def math_operation(expression):
 
 def ping_calculate_pong(expression, operator_index):
     """
-    1 аргумент: выражение, из которого мы будем вычленять одно подвыражение
-    2 аргумент: индекс математического оператора, вокруг которого мы возьмем подвыражение для вычленения
+    argument 1: an expression from which we will extract one subexpression
+    argument 2: the index of the mathematical operator around which we will take the subexpression to extract
     Алгоритм действия:
     1. Вычленяем из выражения наше подвыражение
     2. Вычисляем результат подвыражения функцией math_operation
@@ -49,9 +47,8 @@ def ping_calculate_pong(expression, operator_index):
 def calculator_without_parentheses(expression):
     """
     аргумент - выражение для подсчета
-    функция выделяет приоритеты математических операций:
-    1 уровень - **; 2 уровень - */; 3 уровень - +-.
-    и применяет по очереди функцию ping_calculate_pong и возвращает список с результатом
+    функция выделяет приоритеты математических операций,
+    применяет по очереди функцию ping_calculate_pong и возвращает список с результатом
     """
     j = 1
     while len(expression) > j:
@@ -93,12 +90,15 @@ def calculator_without_parentheses(expression):
 
 # input expression and convert to the list
 exp_input = list(input(f'Input math expression: '))
-# добавить проверку на неправильные символы
-# print(exp_input)
-
 
 # clear the list of spaces
 exp_clear = list(filter(lambda x: x != ' ', exp_input))
+
+# checks characters in an expression for correctness
+check_list = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '(', ')']
+for element in exp_clear:
+    if element not in check_list:
+        print(f'Houston, we have a problem. Element {element} in expression is not correct.')
 
 
 # find multi-digit numbers and create new list with int
@@ -114,7 +114,6 @@ while i < len(exp_clear):
     if i < len(exp_clear):
         exp_int.append(exp_clear[i])
     i += 1
-# print(exp_int)
 
 
 # find exponentation operator and create new list
@@ -129,7 +128,10 @@ while i < len(exp_int):
         i += 1
 # print(exp)
 
+# apply the calculator
 result = calculator_without_parentheses(exp)
-print(result)
+
+if len(result) != 1:
+    print(f'{result} - check your expression, something wrong')
 if len(result) == 1:
     print(f'result: {result[0]}')
