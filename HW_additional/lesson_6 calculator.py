@@ -1,15 +1,15 @@
 """
 Калькулятор построен на алгоритме пинг-понг.
-Калькулятор пока что работает для целых неотрицательных чисел.
+Калькулятор пока что работает для целых и дробных неотрицательных чисел.
 Допустимые операции: **, *, /, +, -. Пробелы значение не имеют.
 Можно использовать скобки (20 любых выражений в скобках,
 для изменения кол-ва - см. ограничение j в цикле функции calculate_and_print).
 
-Пример выражения: ( 2 + 3 ** (2 - 2)) * 2 + (6/(3 + 3)* 2) ** 2
+Пример выражения: ( 2.3 + 3 ** (2 - 2)) * 2.2 + (6/(3 + 3)* 2) ** 2
 При вводе некорректного выражения прерывает выполнение и выводит сообщение.
 
 добавить в функционал:
-1.калькулятор с пониманием отрицательных чисел в виде (-3) и дробных чисел
+1.калькулятор с пониманием отрицательных чисел в виде (-3)
 2. почистить код + написать с применением ООП
 """
 
@@ -55,43 +55,34 @@ def ping_calculate_pong(expression, operator_index):
 
 def calculator_without_parentheses(expression):
     """
-    аргумент - выражение для подсчета
-    функция выделяет приоритеты математических операций,
-    применяет по очереди функцию ping_calculate_pong и возвращает список с результатом
+    argument - expression to count
+    function prioritizes mathematical operations and applies function "ping_calculate_pong"
+    returns expression with result
     """
     j = 1
     while len(expression) > j:
         if "**" in expression:
-            index = expression.index('**')
-            ping_calculate_pong(expression, index)
+            ping_calculate_pong(expression, expression.index('**'))
         elif '*' in expression or '/' in expression:
             if '*' in expression and '/' in expression:
                 if expression.index('*') < expression.index('/'):
-                    index = expression.index('*')
-                    ping_calculate_pong(expression, index)
+                    ping_calculate_pong(expression, expression.index('*'))
                 else:
-                    index = expression.index('/')
-                    ping_calculate_pong(expression, index)
+                    ping_calculate_pong(expression, expression.index('/'))
             elif '/' not in expression:
-                index = expression.index('*')
-                ping_calculate_pong(expression, index)
+                ping_calculate_pong(expression, expression.index('*'))
             elif '*' not in expression:
-                index = expression.index('/')
-                ping_calculate_pong(expression, index)
+                ping_calculate_pong(expression, expression.index('/'))
         elif '+' in expression or '-' in expression:
             if '+' in expression and '-' in expression:
                 if expression.index('+') < expression.index('-'):
-                    index = expression.index('+')
-                    ping_calculate_pong(expression, index)
+                    ping_calculate_pong(expression, expression.index('+'))
                 else:
-                    index = expression.index('-')
-                    ping_calculate_pong(expression, index)
+                    ping_calculate_pong(expression, expression.index('-'))
             elif '-' not in expression:
-                index = expression.index('+')
-                ping_calculate_pong(expression, index)
+                ping_calculate_pong(expression, expression.index('+'))
             elif '+' not in expression:
-                index = expression.index('-')
-                ping_calculate_pong(expression, index)
+                ping_calculate_pong(expression, expression.index('-'))
         else:
             j += 1  # защита от возможного вечного цикла, при вводе некорректного выражения
     return expression
@@ -137,35 +128,47 @@ exp_input = list(input(f'Input math expression: '))
 exp_clear = list(filter(lambda x: x != ' ', exp_input))
 
 # checks characters in an expression for correctness
-check_list = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '(', ')']
+check_list = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '(', ')', '.']
 for element in exp_clear:
     if element not in check_list:
         print(f'Houston, we have a problem. Element {element} in expression is not correct.')
         raise SystemExit(1)
 
 # find multi-digit numbers and create new list with int
-exp_int = []
+exp_num = []
 i = 0
 while i < len(exp_clear):
     number = ''
     while i < len(exp_clear) and exp_clear[i].isdigit():
         number += exp_clear[i]
         if i+1 == len(exp_clear) or not exp_clear[i+1].isdigit():
-            exp_int.append(int(number))
+            exp_num.append(int(number))
         i += 1
     if i < len(exp_clear):
-        exp_int.append(exp_clear[i])
+        exp_num.append(exp_clear[i])
     i += 1
+
+# find fractional (float) numbers and update list
+while'.' in exp_num:
+    if exp_num.index('.') != len(exp_num)-1 and exp_num.index('.') != 0 \
+            and type(exp_num[exp_num.index('.')-1]) == int and type(exp_num[exp_num.index('.')+1]) == int:
+        fl_number = float(str(exp_num[exp_num.index('.')-1]) + exp_num[exp_num.index('.')] +
+                          str(exp_num[exp_num.index('.')+1]))
+        exp_num[exp_num.index('.')+1] = fl_number
+        del exp_num[exp_num.index('.')-1:exp_num.index('.')+1]
+    else:
+        print(f'{exp_num} - check your expression, something wrong')
+        raise SystemExit(12)
 
 # find exponent operator and create new list
 exp = []
 i = 0
-while i < len(exp_int):
-    if exp_int[i] == '*' and i != len(exp_int)-1 and exp_int[i+1] == '*':
+while i < len(exp_num):
+    if exp_num[i] == '*' and i != len(exp_num)-1 and exp_num[i+1] == '*':
         exp.append('**')
         i += 2
     else:
-        exp.append(exp_int[i])
+        exp.append(exp_num[i])
         i += 1
 # print(exp)
 
