@@ -1,15 +1,15 @@
 """
 Калькулятор построен на алгоритме пинг-понг.
-Калькулятор пока что работает для целых и дробных неотрицательных чисел.
+Калькулятор работает для целых, дробных, неотрицательных и отрицательных чисел.
+Отрицательные числа должны быть записаны в виде (-34).
 Допустимые операции: **, *, /, +, -. Пробелы значение не имеют.
 Можно использовать скобки (20 любых выражений в скобках,
 для изменения кол-ва - см. ограничение j в цикле функции calculate_and_print).
 
-Пример выражения: ( 2.3 + 3 ** (2 - 2)) * 2.2 + (6/(3 + 3)* 2) ** 2
+Пример выражения: ( (-2.3) + 3 ** (2 - 2)) * 2.2 + (6/(3 + 3)* (-2)) ** 2
 При вводе некорректного выражения прерывает выполнение и выводит сообщение.
 
-добавить в функционал:
-1.калькулятор с пониманием отрицательных чисел в виде (-3)
+сделать: 1.пофиксить ограничение в 20 выражений, (raise, цикл for ... )
 2. почистить код + написать с применением ООП
 """
 
@@ -17,12 +17,11 @@
 def math_operation(expression):
     """ simple calculator for two numbers in expression like 3 + 3 """
     if not str(expression[0]).isdigit() or not str(expression[2]).isdigit():
-        # исключает вызов ошибки при дробных числах
-        if not str(expression[0]).replace('.', '1').isdigit() or not str(expression[2]).replace('.', '1').isdigit():
-            # исключает вызов ошибки при отрицательных числах
-            if not str(expression[0]).replace('-', '1').isdigit() or not str(expression[2]).replace('-', '1').isdigit():
-                print(f'{expression} - check your expression, something wrong')
-                raise SystemExit(5)
+        # исключает вызов ошибки при дробных и отрицательных числах
+        if not str(expression[0]).replace('.', '1').replace('-', '1').isdigit() or \
+                not str(expression[2]).replace('.', '1').replace('-', '1').isdigit():
+            print(f'{expression} - check your expression, something wrong')
+            raise SystemExit(5)
     operator = expression[1]
     if operator == '**':
         return expression[0]**expression[2]
@@ -159,6 +158,20 @@ while'.' in exp_num:
     else:
         print(f'{exp_num} - check your expression, something wrong')
         raise SystemExit(12)
+
+# find negative numbers and update list
+i = 0
+while '(' in exp_num and i < len(exp_num.copy()):
+    if exp_num[i] == '(' and i+3 < len(exp_num) and exp_num[i+1] == '-' and exp_num[i+3] == ')':
+        if type(exp_num[i+2]) == int:
+            negative_number = int('-' + str(exp_num[i+2]))
+            exp_num[i + 3] = negative_number
+            del exp_num[i:i + 3]
+        elif type(exp_num[i + 2]) == float:
+            negative_number = float('-' + str(exp_num[i+2]))
+            exp_num[i + 3] = negative_number
+            del exp_num[i:i + 3]
+    i += 1
 
 # find exponent operator and create new list
 exp = []
