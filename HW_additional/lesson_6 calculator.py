@@ -17,8 +17,9 @@ def math_operation(expression):
         # исключает вызов ошибки при дробных и отрицательных числах
         if not str(expression[0]).replace('.', '1').replace('-', '1').isdigit() or \
                 not str(expression[2]).replace('.', '1').replace('-', '1').isdigit():
-            print(f'{expression} - check your expression, something wrong')
-            raise SystemExit(5)
+            raise SystemExit(f'error-8: {expression} - check your expression, something wrong')
+    if expression[2] == 0 and expression[1] == '/':
+        raise SystemExit(f'error-9: {expression} - division by zero in expression')
     operator = expression[1]
     if operator == '**':
         return expression[0]**expression[2]
@@ -30,6 +31,10 @@ def math_operation(expression):
         return expression[0]+expression[2]
     elif operator == '-':
         return expression[0]-expression[2]
+    # x, y = 1, 1
+    # operations_list = {'**': x**y, '*': x*y, '/': x/y, '+': x+y, '-': x-y}
+    # x, y = expression[0], expression[2]
+    # return operations_list[expression[1]]
 
 
 def ping_calculate_pong(expression, operator_index):
@@ -41,8 +46,7 @@ def ping_calculate_pong(expression, operator_index):
       3. replace in expression: subexpression to subexpression result - pong.
     """
     if len(expression) < 3 or operator_index == len(expression)-1 or operator_index == 0:
-        print(f'{expression} - check your expression, something wrong')
-        raise SystemExit(4)
+        raise SystemExit(f'error-7: {expression} - check your expression, something wrong')
     sub_expression = expression[operator_index - 1:operator_index + 2]
     sub_result = math_operation(sub_expression)
     expression[operator_index+1] = sub_result
@@ -96,37 +100,29 @@ def calculate_and_print(expression):
                     fragment = expression[a+1:z]
                     fr_result = calculator_without_parentheses(fragment)
                     if len(fr_result) != 1:  # проверка на наличие ошибки ввода в фрагменте выражения ((()))
-                        print(f'{fr_result} - check your expression, something wrong')
-                        raise SystemExit(3)
+                        raise SystemExit(f'error-4: {fr_result} - check your expression, something wrong')
                     expression[z] = fr_result[0]
                     del expression[a:z]
                 else:
-                    print('check your expression, something wrong with parentheses')
-                    raise SystemExit(2)
+                    raise SystemExit('error-5: check your expression, something wrong with parentheses')
             else:
-                print('check your expression, something wrong with parentheses')
-                raise SystemExit(2)
+                raise SystemExit('error-5: check your expression, something wrong with parentheses')
         else:
             expression = calculator_without_parentheses(expression)
     if len(expression) != 1:
-        print(f'{expression} - something wrong, return raise SystemExit(3) ')
-        # raise SystemExit(3)  # 'это вот возможно лишнее уже
+        raise SystemExit(f'error-6: {expression} - check your expression, something wrong')
     if len(expression) == 1:
         print(f'result: {expression[0]}')
 
 
-# input expression and convert to the list
-exp_input = list(input(f'Input math expression: '))
-
-# clear the list of spaces
-exp_clear = list(filter(lambda x: x != ' ', exp_input))
+# input expression, clear of spaces and convert to the list
+exp_clear = list(filter(lambda x: x != ' ', input(f'Input math expression: ')))
 
 # check characters in an expression for correctness
 check_list = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '(', ')', '.']
 for element in exp_clear:
     if element not in check_list:
-        print(f'Houston, we have a problem. Element {element} in expression is not correct.')
-        raise SystemExit(1)
+        raise SystemExit(f'error-1: Houston, we have a problem. Element {element} in expression is not correct.')
 
 # find multi-digit numbers and create new list with int
 exp_num = []
@@ -151,8 +147,7 @@ while'.' in exp_num:
         exp_num[exp_num.index('.')+1] = fl_number
         del exp_num[exp_num.index('.')-1:exp_num.index('.')+1]
     else:
-        print(f'{exp_num} - check your expression, something wrong')
-        raise SystemExit(12)
+        raise SystemExit(f'error-2: check your expression, something wrong with "."')
 
 # find negative numbers and update list
 i = 0
@@ -166,6 +161,8 @@ while '(' in exp_num and i < len(exp_num.copy()):
             negative_number = float('-' + str(exp_num[i+2]))
             exp_num[i + 3] = negative_number
             del exp_num[i:i + 3]
+        else:
+            raise SystemExit(f'error-3: check your expression, something wrong with "(-?)"')
     i += 1
 
 # find exponent operator and create new list
