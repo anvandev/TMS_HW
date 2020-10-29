@@ -2,15 +2,12 @@
 Калькулятор построен на алгоритме пинг-понг.
 Калькулятор работает для целых, дробных, неотрицательных и отрицательных чисел.
 Отрицательные числа должны быть записаны в виде (-34).
-Допустимые операции: **, *, /, +, -. Пробелы значение не имеют.
-Можно использовать скобки (20 любых выражений в скобках,
-для изменения кол-ва - см. ограничение j в цикле функции calculate_and_print).
+Допустимые операции: **, *, /, +, -. Можно использовать скобки. Пробелы значение не имеют.
 
 Пример выражения: ( (-2.3) + 3 ** (2 - 2)) * 2.2 + (6/(3 + 3)* (-2)) ** 2
-При вводе некорректного выражения прерывает выполнение и выводит сообщение.
+При вводе некорректного выражения, прерывает выполнение и выводит сообщение.
 
-сделать: 1.пофиксить ограничение в 20 выражений, (raise, цикл for ... )
-2. почистить код + написать с применением ООП
+сделать: улучшить код + написать с применением ООП
 """
 
 
@@ -88,8 +85,7 @@ def calculator_without_parentheses(expression):
 
 
 def calculate_and_print(expression):
-    j = 1  # защита от вечного цикла при неотловленных ошибках ввода
-    while j < 22:
+    for el in expression.copy():
         if ')' in expression:
             if '(' in expression:
                 if expression.index(')') > expression.index('('):
@@ -112,7 +108,6 @@ def calculate_and_print(expression):
                 raise SystemExit(2)
         else:
             expression = calculator_without_parentheses(expression)
-        j += 1
     if len(expression) != 1:
         print(f'{expression} - something wrong, return raise SystemExit(3) ')
         # raise SystemExit(3)  # 'это вот возможно лишнее уже
@@ -126,7 +121,7 @@ exp_input = list(input(f'Input math expression: '))
 # clear the list of spaces
 exp_clear = list(filter(lambda x: x != ' ', exp_input))
 
-# checks characters in an expression for correctness
+# check characters in an expression for correctness
 check_list = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '*', '/', '(', ')', '.']
 for element in exp_clear:
     if element not in check_list:
