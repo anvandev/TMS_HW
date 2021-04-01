@@ -3,5 +3,10 @@
 экран "millennium" """
 
 number = int(input("Number: "))
+
+# using ternary operator
+print('millennium' if number % 1000 == 0 else None)
+
+# using simple if statement
 if number % 1000 == 0:
     print("millennium")

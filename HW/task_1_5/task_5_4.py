@@ -2,11 +2,14 @@
 Для заданного числа N составьте программу вычисления суммы
 S=1+1/2+1/3+1/4+...+1/N, где N – натуральное число. """
 
-N = 5
+# using generator expressions
+n = 5
+s = sum([1 / number for number in range(1, n+1)])
+print(s)
 
-S = 0
-i = 1
-for n in range(1, N + 1):
-    S += 1/i
-    i += 1
-print(S)
+# using simple for loop
+n = 5
+s = 0
+for number in range(1, n+1):
+    s += 1 / number
+print(s)

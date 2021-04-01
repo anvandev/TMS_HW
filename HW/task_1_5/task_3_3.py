@@ -4,6 +4,11 @@
 Если меньше 10, то вывести на экран второй символ строки """
 
 string = input('Input something: ')
+
+# using ternary operator
+print(f'{string}!!!' if len(string) > 10 else string[1])
+
+# using simple if statement
 if len(string) > 10:
     new_string = f'{string}!!!'
     print(new_string)

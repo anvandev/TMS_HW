@@ -5,6 +5,11 @@
 
 numbers = [2, 6, 3, -10, 14, 7]
 
+# using generator expressions
+new_numbers = [x * -2 for x in numbers]
+print(new_numbers)
+
+
 # using for loop
 new_numbers = []
 for number in numbers:

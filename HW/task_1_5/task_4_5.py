@@ -3,6 +3,15 @@
 либо 1 и 1, а каждое последующее число равно сумме двух предыдущих чисел.
 Пример: 1, 1, 2, 3, 5, 8, 13, 21, 34... ) """
 
+# using for loop (new)
+f_list = []
+for i in range(15):
+    if i < 2:
+        f_list.append(1)
+    else:
+        f_list.append(f_list[i-2] + f_list[i-1])
+print(f_list)
+
 
 # using while loop
 l_fib = []
@@ -16,7 +25,7 @@ while len(l_fib) < 15:
 print(l_fib)
 
 
-# using for loop
+# using for loop (old)
 l_fib = []
 i = 0
 if len(l_fib) == 0:

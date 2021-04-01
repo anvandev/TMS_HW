@@ -2,6 +2,7 @@
 Дана целочисленная квадратная матрица. Найти в каждой строке наи-
 больший элемент и поменять его местами с элементом главной диагонали. """
 
+
 from random import randint
 
 
@@ -18,12 +19,9 @@ print_matrix(random_matrix)
 
 
 # find max element and swap elements
-
-i = 0     # to count main diagonal position
-for line in random_matrix:
+for i, line in enumerate(random_matrix):
     index_max_num = line.index(max(line))
-    line[i], line[index_max_num] = line[index_max_num], line[i]
-    i += 1
-
+    if line[i] != line[index_max_num]:
+        line[i], line[index_max_num] = line[index_max_num], line[i]
 print('Matrix with diagonal swapped elements:')
 print_matrix(random_matrix)

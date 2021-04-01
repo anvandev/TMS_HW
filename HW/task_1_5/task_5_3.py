@@ -3,26 +3,20 @@
 равно сумме всех делителей другого, кроме самого этого числа. Найти все
 пары дружественных чисел, лежащих в диапазоне от 200 до 300. """
 
-# получаем словарь с парами: число из диапазона - сумма его целочисленных делителей
+# получаем словарь с парами: {число из диапазона: сумма его целочисленных делителей}
 d_sum = {}
-for n in range(200, 300):
-    i = 1
-    n_sum = 0
-    while i < n:
-        if n % i == 0:
-            n_sum += i
-        i += 1
-    d_sum[n] = n_sum
-# print(d_sum)
-
-# убираем элементы словаря c значениями вне диапазона от 200 до 300
-for n in d_sum.copy():
-    if d_sum[n] < 200 or d_sum[n] > 300:
-        del d_sum[n]
-# print(d_sum)
+for number in range(200, 300):
+    n_sum_dividers = 0
+    for divider in range(1, number):  # считаем сумму целых делителей каждого числа от 200 до 300
+        if not number % divider:
+            n_sum_dividers += divider
+    # добавляем в словарь пару, только если сумма делителей в диапазоне от 200 до 300
+    if 200 <= n_sum_dividers < 300:
+        d_sum[number] = n_sum_dividers
+print(d_sum)
 
 # убираем ключи и значения, которые не встречаются
-for n in d_sum.copy():
-    if n not in d_sum.values() or d_sum[n] not in d_sum.keys():
-        del d_sum[n]
+for number in d_sum.copy():
+    if number not in d_sum.values() or d_sum[number] not in d_sum.keys():
+        del d_sum[number]
 print(d_sum)

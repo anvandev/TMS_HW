@@ -3,6 +3,11 @@
 
 numbers = [2, 3, 43, -21, 10, 17, 54]
 
+# using generator expressions
+q = len([x for x in numbers if x % 2 == 0])
+print(q)
+
+
 # using for loop
 q_even_num = 0
 for number in numbers:

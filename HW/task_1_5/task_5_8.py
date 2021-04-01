@@ -4,12 +4,14 @@
 
 s = 'межгалактический полет может затянуться'
 
-s_list = s.split()
-s_list_turn = []
-i = 1
-for el in s_list:
-    word = s_list[-i]
-    s_list_turn.append(word)
-    i += 1
-s_yoda_style = ' '.join(s_list_turn)
+# without using loop
+s2_list = s.split()[::-1]
+s_yoda_style = ' '.join(s2_list)
 print(s_yoda_style)
+
+
+# # using for loop in generator
+# s3_list = s.split()
+# s_list_reversed = [word for word in s3_list[::-1]]
+# s_yoda_style = ' '.join(s_list_reversed)
+# print(s_yoda_style)
