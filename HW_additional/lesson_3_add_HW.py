@@ -6,10 +6,8 @@ def hello(name):
 
 
 names = []
-i = 1
-while i <= 5:
-    names.append(input(f'Введите имя {i}: '))
-    i += 1
+for i in range(5):
+    names.append(input(f'Введите имя {i+1}: '))
 
 for n in names:
     hello(n)
