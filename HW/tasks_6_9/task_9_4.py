@@ -7,20 +7,9 @@
 # version 1 - декоратор для функции с любым кол-вом агрументов
 def mirror_arguments(func):
     def wrapper(*args):
-        args = list(args)
-        i = len(args) - 1
-        new_args = []
-        while i >= 0:
-            new_args.append(args[i])
-            i -= 1
-        return func(*new_args)
+        reverse_args = args[::-1]
+        return func(*reverse_args)
     return wrapper
-
-# version 2 - декоратор для функции с 2 аргументами
-# def mirror_arguments(func):
-#     def wrapper(arg1, arg2):
-#         return func(arg2, arg1)
-#     return wrapper
 
 
 @mirror_arguments

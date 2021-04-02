@@ -20,12 +20,19 @@ Derive function abundantNumber(num)/abundant_number(num)
 which returns true/True/.true. if num is abundant, false/False/.false. if not."""
 
 
+# first solution
 def abundant_number(num):
     divisors_sum = 0
     for n in range(1, num):
         if num % n == 0:
             divisors_sum += n
     return divisors_sum > num
+
+
+# # second solution
+# def abundant_number(num):
+#     divisors_sum = sum([divisor for divisor in range(1, num) if not num % divisor])
+#     return divisors_sum > num
 
 
 print(abundant_number(12))

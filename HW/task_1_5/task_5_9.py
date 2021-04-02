@@ -16,12 +16,17 @@ if n > m:
 else:
     numbers = list(range(n, m + 1))
 
-for n in numbers:
-    dividers = []
-    i = 2
-    while i < n:
-        if n % i == 0:
-            dividers.append(str(i))
-        i += 1
-    dividers = ' '.join(dividers)
-    print(f'{n}: {dividers}')
+# first solution
+numbers_dividers = {number: [n for n in range(2, number) if not number % n] for number in numbers}
+print(numbers_dividers)
+
+# old solution
+# for n in numbers:
+#     dividers = []
+#     i = 2
+#     while i < n:
+#         if n % i == 0:
+#             dividers.append(str(i))
+#         i += 1
+#     dividers = ' '.join(dividers)
+#     print(f'{n}: {dividers}')

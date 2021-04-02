@@ -17,6 +17,7 @@
 14)Создать новую матрицу равную matrix_a умноженной на g. g вводится с клавиатура"""
 
 from random import randint
+from functools import reduce
 
 
 def print_matrix(matrix):
@@ -32,22 +33,15 @@ print_matrix(random_matrix)
 
 # 2) Найти максимальный элемент матрицы. - разделить на два коммита
 # 3) Найти минимальный элемент матрицы.
-max_elements = []
-min_elements = []
-for line in random_matrix:
-    max_elements.append(max(line))
-    min_elements.append(min(line))
-max_element = max(max_elements)
+max_element = max(map(max, random_matrix))
 print(f'Максимальный элемент -  {max_element}')
-min_element = min(min_elements)
+min_element = min(map(min, random_matrix))
 print(f'Минимальный элемент - {min_element}')
 
 # 4) Найти сумму всех элементов матрицы.
-sum_elements_in_line = []
-for line in random_matrix:
-    sum_elements_in_line.append(sum(line))
-sum_elements = sum(sum_elements_in_line)
-print(f'Сумма всех элементов - {sum_elements}')
+sum_elements_in_line = list(map(sum, random_matrix))
+sum_all_elements = sum(sum_elements_in_line)
+print(f'Сумма всех элементов - {sum_all_elements}')
 
 # 5) Найти индекс ряда с максимальной суммой элементов.
 line_index_max_sum = sum_elements_in_line.index(max(sum_elements_in_line))
@@ -59,14 +53,9 @@ print(f'Индекс ряда с минимальной суммой элеме�
 
 # 6) Найти индекс колонки с максимальной суммой элементов.
 # 8) Найти индекс колонки с минимальной суммой элементов.
-i = 0
-sum_elements_in_column = []
-while i < n:
-    one_column_sum = 0
-    for line in random_matrix:
-        one_column_sum += line[i]
-    sum_elements_in_column.append(one_column_sum)
-    i += 1
+a, b, c, d = random_matrix
+sum_elements_in_column = list(map(sum, zip(a, b, c, d)))
+
 column_index_max_sum = sum_elements_in_column.index(max(sum_elements_in_column))
 print(f'Индекс колонки с максимальной суммой элементов - {column_index_max_sum}')
 
@@ -74,38 +63,27 @@ column_index_min_sum = sum_elements_in_column.index(min(sum_elements_in_column))
 print(f'Индекс колонки с минимальной суммой элементов - {column_index_min_sum}')
 
 # 9) Обнулить все элементы выше главной диагонали.
+# first solution
 matrix_0_above = []
-i = 0
-for line in random_matrix:
-    new_line = []
-    j = 0
-    for element in line:
-        if j <= i:
-            new_line.append(element)
-        else:
-            new_line.append(0)
-        j += 1
+for i, line in enumerate(random_matrix):
+    new_line = [number if j <= i else 0 for j, number in enumerate(line)]
     matrix_0_above.append(new_line)
-    i += 1
+
+# # second solution
+# matrix_0_above = [[number if j <= i else 0 for j, number in enumerate(line)] for i, line in enumerate(random_matrix)]
 print(f'Matrix with 0 above main diagonal:')
 print_matrix(matrix_0_above)
 
-
 # 10) Обнулить все элементы ниже главной диагонали.
+# first solution
 matrix_0_below = []
-i = 0
-for line in random_matrix:
-    new_line = []
-    j = 0
-    for element in line:
-        if j < i:
-            new_line.append(0)
-        else:
-            new_line.append(element)
-        j += 1
+for i, line in enumerate(random_matrix):
+    new_line = [number if j >= i else 0 for j, number in enumerate(line)]
     matrix_0_below.append(new_line)
-    i += 1
-print(f'Matrix with 0 above main diagonal:')
+
+# # second solution
+# matrix_0_below = [[number if j >= i else 0 for j, number in enumerate(line)] for i, line in enumerate(random_matrix)]
+print(f'Matrix with 0 below main diagonal:')
 print_matrix(matrix_0_below)
 
 # 11) Создать две новые матрицы matrix_a, matrix_b случайных чисел размерностью n*m.
@@ -120,41 +98,32 @@ print_matrix(matrix_b)
 
 
 # 12)Создать матрицу равную сумме matrix_a и matrix_b.
-matrix_a_plus_b = []
-i = 0
-for line in matrix_a:
-    new_line = []
-    j = 0
-    for element in line:
-        new_line.append(element + matrix_b[i][j])
-        j += 1
-    matrix_a_plus_b.append(new_line)
-    i += 1
+# first solution
+matrix_a_plus_b = [[a + b for a, b in zip(line_a, line_b)] for line_a, line_b in zip(matrix_a, matrix_b)]
+
+# # second solution
+# matrix_a_plus_b = []
+# for i, line in enumerate(matrix_a):
+#     new_line = [number + matrix_b[i][j] for j, number in enumerate(line)]
+#     matrix_a_plus_b.append(new_line)
 print('Matrix a + matrix b: ')
 print_matrix(matrix_a_plus_b)
 
 
 # 13)Создать матрицу равную разности matrix_a и matrix_b.
+# first solution
+matrix_a_plus_b = [[a - b for a, b in zip(line_a, line_b)] for line_a, line_b in zip(matrix_a, matrix_b)]
+
+# # second solution
 matrix_a_minus_b = []
-i = 0
-for line in matrix_a:
-    new_line = []
-    j = 0
-    for element in line:
-        new_line.append(element - matrix_b[i][j])
-        j += 1
+for i, line in enumerate(matrix_a):
+    new_line = [number - matrix_b[i][j] for j, number in enumerate(line)]
     matrix_a_minus_b.append(new_line)
-    i += 1
 print('Matrix a - matrix b: ')
 print_matrix(matrix_a_minus_b)
 
 
-# 14)Создать новую матрицу равную matrix_a умноженной на g. g вводится с клавиатура"""
+# 14)Создать новую матрицу равную matrix_a умноженной на g. g вводится с клавиатуры"""
 g = int(input('Введите значение g: '))
-matrix_a_mult_g = []
-for line in matrix_a:
-    new_line = []
-    for element in line:
-        new_line.append(element * g)
-    matrix_a_mult_g.append(new_line)
+matrix_a_mult_g = [[n * g for n in line] for line in matrix_a]
 print_matrix(matrix_a_mult_g)

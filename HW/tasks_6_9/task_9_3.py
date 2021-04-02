@@ -7,23 +7,9 @@
 # 1 version of decorator
 def only_odd_numbers(func):
     def wrapper(*args):
-        odd_numbers = func(*args)
-        for n in odd_numbers.copy():
-            if n % 2 == 0:
-                odd_numbers.remove(n)
+        odd_numbers = [number for number in args if number % 2]
         return odd_numbers
     return wrapper
-
-
-# 2 version of decorator
-# def only_odd_numbers(func):
-#     def wrapper(*args):
-#         odd_numbers = []
-#         for n in args:
-#             if n % 2 != 0:
-#                 odd_numbers.append(n)
-#         return odd_numbers
-#     return wrapper
 
 
 @only_odd_numbers
