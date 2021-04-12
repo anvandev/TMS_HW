@@ -3,7 +3,7 @@
 
 numbers = [2, 3, 43, -21, 10, 17, 54]
 
-# using generator expressions
+# using list comprehension
 q = len([x for x in numbers if x % 2 == 0])
 print(q)
 

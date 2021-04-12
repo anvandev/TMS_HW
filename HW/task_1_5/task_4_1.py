@@ -5,7 +5,7 @@
 
 numbers = [2, 6, 3, -10, 14, 7]
 
-# using generator expressions
+# using list comprehension
 new_numbers = [x * -2 for x in numbers]
 print(new_numbers)
 

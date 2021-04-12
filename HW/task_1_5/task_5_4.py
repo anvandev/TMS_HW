@@ -2,7 +2,7 @@
 Для заданного числа N составьте программу вычисления суммы
 S=1+1/2+1/3+1/4+...+1/N, где N – натуральное число. """
 
-# using generator expressions
+# using list comprehension
 n = 5
 s = sum([1 / number for number in range(1, n+1)])
 print(s)

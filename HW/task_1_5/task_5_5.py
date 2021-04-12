@@ -11,7 +11,7 @@ n_max = max(numbers)
 print(f'Maximum number: {n_max}')
 
 
-# using generator expressions with ternary operator
+# using list comprehension with ternary operator
 new_numbers = array('i', [n_max if not num % 2 else num for num in numbers])
 print(new_numbers)
 

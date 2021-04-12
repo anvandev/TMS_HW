@@ -10,7 +10,7 @@ s_yoda_style = ' '.join(s2_list)
 print(s_yoda_style)
 
 
-# # using for loop in generator
+# # using for loop in list comprehension
 # s3_list = s.split()
 # s_list_reversed = [word for word in s3_list[::-1]]
 # s_yoda_style = ' '.join(s_list_reversed)
